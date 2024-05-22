@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://crj3ip5fcbkfa"]
+
+[sub_resource type="GDScript" id="GDScript_m7oxv"]
+script/source = "extends Polygon2D
+
+
+func _ready():
+	visible = true
+"
+
+[node name="imlazy" type="Polygon2D"]
+z_index = -100
+color = Color(0.580392, 0.584314, 0.690196, 1)
+polygon = PackedVector2Array(-52968, -23392, 46008, -22368, 46696, 22216, -45216, 20512)
+script = SubResource("GDScript_m7oxv")

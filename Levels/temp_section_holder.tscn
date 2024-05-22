@@ -1,0 +1,269 @@
+[gd_scene load_steps=8 format=3 uid="uid://hac166vx20dk"]
+
+[ext_resource type="Script" path="res://Scripts/CameraPoint.gd" id="1_ltnry"]
+[ext_resource type="PackedScene" uid="uid://bl3u1chfs61bi" path="res://Objects/ground.tscn" id="2_i2mnv"]
+[ext_resource type="PackedScene" uid="uid://o8lk4d1newe0" path="res://Objects/platform.tscn" id="3_gofq8"]
+[ext_resource type="PackedScene" uid="uid://c3ob4xukmy5u" path="res://Objects/vacuum_trail.tscn" id="4_77dn7"]
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="5_l20ke"]
+[ext_resource type="Texture2D" uid="uid://bplor7wn0e7jn" path="res://Sprites/ctrl.png" id="6_gkbbq"]
+[ext_resource type="Texture2D" uid="uid://qtmtrqaypuek" path="res://Sprites/Player.png" id="7_m8mko"]
+
+[node name="TempSectionHolder" type="Node2D"]
+
+[node name="CameraPoint6" type="Polygon2D" parent="."]
+z_index = -100
+position = Vector2(-268, 12)
+scale = Vector2(384, 448)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("1_ltnry")
+locked_position = true
+snap_bounds = Vector2(384, 448)
+priority = 75
+
+[node name="CameraPoint8" type="Polygon2D" parent="."]
+z_index = -100
+position = Vector2(-188, -676)
+scale = Vector2(448, 320)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("1_ltnry")
+locked_position = true
+snap_bounds = Vector2(448, 320)
+
+[node name="CameraPoint7" type="Polygon2D" parent="."]
+z_index = -100
+position = Vector2(372, 12)
+scale = Vector2(384, 448)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("1_ltnry")
+locked_position = true
+snap_bounds = Vector2(384, 448)
+
+[node name="Ground14" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(-588, 140)
+scale = Vector2(0.5, 3)
+
+[node name="Ground16" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(52, 12)
+scale = Vector2(0.5, 2)
+
+[node name="Ground19" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(52, 524)
+scale = Vector2(4.5, 1)
+
+[node name="Ground23" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(20, -564)
+scale = Vector2(0.25, 0.5)
+
+[node name="Ground20" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(276, -436)
+scale = Vector2(3.75, 0.5)
+
+[node name="Ground17" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(-172, -212)
+scale = Vector2(0.125, 1.25)
+
+[node name="Ground22" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(-428, -756)
+scale = Vector2(0.25, 2.5)
+
+[node name="Ground24" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(84, -756)
+scale = Vector2(0.25, 2)
+
+[node name="Ground21" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(468, -148)
+scale = Vector2(0.125, 0.75)
+
+[node name="Ground18" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(-364, 76)
+scale = Vector2(0.125, 0.75)
+
+[node name="platform16" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-268, 260)
+scale = Vector2(0.75, 1)
+
+[node name="platform13" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-460, -236)
+
+[node name="platform17" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-252, -348)
+
+[node name="platform23" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-380, -348)
+
+[node name="platform24" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-508, -348)
+
+[node name="platform18" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-332, -452)
+
+[node name="platform19" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-332, -556)
+
+[node name="platform20" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-332, -652)
+
+[node name="platform21" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-332, -748)
+
+[node name="platform22" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-332, -844)
+
+[node name="platform14" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(-76, -236)
+
+[node name="Ground29" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(692, 396)
+scale = Vector2(0.5, 2)
+
+[node name="Ground30" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(692, -116)
+scale = Vector2(0.5, 1)
+
+[node name="Ground31" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(884, -372)
+
+[node name="Ground32" parent="." instance=ExtResource("2_i2mnv")]
+position = Vector2(276, 76)
+scale = Vector2(0.125, 0.75)
+
+[node name="platform27" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(372, 260)
+scale = Vector2(0.75, 1)
+
+[node name="platform28" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(180, -236)
+
+[node name="platform29" parent="." instance=ExtResource("3_gofq8")]
+position = Vector2(564, -236)
+
+[node name="VacuumTrail18" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-332, 332)
+direction = Vector2(-1, -1)
+
+[node name="VacuumTrail15" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-460, -140)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail16" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-460, -12)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail19" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-76, -148)
+pull_speed = 300.0
+direction = Vector2(0, -1)
+color = Color(0.619608, 0.901961, 0.603922, 1)
+
+[node name="VacuumTrail20" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-76, -20)
+pull_speed = 300.0
+direction = Vector2(0, -1)
+color = Color(0.619608, 0.901961, 0.603922, 1)
+
+[node name="VacuumTrail17" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-460, 116)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail21" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-204, 332)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail23" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-76, 332)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail25" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(52, 332)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail26" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(180, 332)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail27" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(308, 332)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail22" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-460, 244)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail24" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(-460, 372)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail28" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(564, -148)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail29" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(564, -20)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail31" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(436, 332)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail32" parent="." instance=ExtResource("4_77dn7")]
+position = Vector2(564, 332)
+direction = Vector2(-1, 0)
+
+[node name="smiley" type="Label" parent="."]
+offset_left = 548.0
+offset_top = -332.0
+offset_right = 590.0
+offset_bottom = -267.0
+theme_override_fonts/font = ExtResource("5_l20ke")
+theme_override_font_sizes/font_size = 64
+text = ":)"
+
+[node name="Ctrl" type="Sprite2D" parent="."]
+position = Vector2(-108, -908)
+scale = Vector2(2, 2)
+texture = ExtResource("6_gkbbq")
+
+[node name="FallSpeedTutorial" type="Sprite2D" parent="."]
+modulate = Color(0.501961, 0.501961, 0.501961, 1)
+position = Vector2(-204, -812)
+scale = Vector2(2, 2)
+texture = ExtResource("7_m8mko")
+flip_h = true
+hframes = 8
+vframes = 3
+frame = 13
+
+[node name="FallSpeedTutorial2" type="Sprite2D" parent="."]
+modulate = Color(0.501961, 0.501961, 0.501961, 1)
+position = Vector2(-156, -620)
+scale = Vector2(2, 2)
+texture = ExtResource("7_m8mko")
+flip_h = true
+hframes = 8
+vframes = 3
+frame = 9
+
+[node name="FallSpeedTutorial3" type="Sprite2D" parent="."]
+modulate = Color(0.501961, 0.501961, 0.501961, 1)
+position = Vector2(-116, -532)
+rotation = 1.57079
+scale = Vector2(2, 2)
+texture = ExtResource("7_m8mko")
+flip_h = true
+hframes = 8
+vframes = 3
+frame = 9
+
+[node name="FallSpeedTutorial4" type="Sprite2D" parent="."]
+modulate = Color(0.501961, 0.501961, 0.501961, 1)
+position = Vector2(-60, -620)
+rotation = -3.14159
+scale = Vector2(2, 2)
+texture = ExtResource("7_m8mko")
+flip_h = true
+hframes = 8
+vframes = 3
+frame = 9

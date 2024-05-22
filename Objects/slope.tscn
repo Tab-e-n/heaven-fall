@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5i5fddf86px3"]
+
+[ext_resource type="Script" path="res://Scripts/slope.gd" id="1_07r63"]
+
+[node name="Slope" type="StaticBody2D"]
+script = ExtResource("1_07r63")
+
+[node name="coll" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-32, -31, -31, -31, 31, 31, 31, 32, -32, 32)
+
+[node name="vis" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-32, -32, 32, 32, -32, 32)
+
+[node name="pusher" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="pusher"]
+polygon = PackedVector2Array(-32, -32, -24, -32, 32, 24, 32, 32)
+
+[connection signal="body_entered" from="pusher" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="pusher" to="." method="_on_body_exited"]

@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8imddye5h53v"]
+
+[ext_resource type="Texture2D" uid="uid://dyqhn6upd3a43" path="res://Sprites/checkerboard.png" id="1_7uw75"]
+[ext_resource type="Script" path="res://Scripts/speedrun_start.gd" id="1_gpq8t"]
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="3_2khdb"]
+[ext_resource type="PackedScene" uid="uid://cldcn1c1nsadf" path="res://Objects/time_showcase.tscn" id="4_g46bp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_frolg"]
+size = Vector2(32, 256)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uqij3"]
+
+[node name="SpeedrunStart" type="Area2D"]
+z_index = -10
+script = ExtResource("1_gpq8t")
+
+[node name="right" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+texture_repeat = 2
+position = Vector2(272, -64)
+texture = ExtResource("1_7uw75")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 256)
+
+[node name="left" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+texture_repeat = 2
+position = Vector2(-272, -64)
+texture = ExtResource("1_7uw75")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 256)
+
+[node name="not_interested" type="Area2D" parent="."]
+position = Vector2(0, -64)
+monitoring = false
+monitorable = false
+
+[node name="vis" type="Sprite2D" parent="not_interested"]
+modulate = Color(1, 0.313726, 0.541176, 0.501961)
+texture_repeat = 2
+texture = ExtResource("1_7uw75")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 256)
+
+[node name="coll" type="CollisionShape2D" parent="not_interested"]
+shape = SubResource("RectangleShape2D_frolg")
+
+[node name="text" type="Label" parent="not_interested"]
+offset_left = -88.0
+offset_top = -152.0
+offset_right = 89.0
+offset_bottom = -127.0
+theme_override_fonts/font = ExtResource("3_2khdb")
+theme_override_font_sizes/font_size = 24
+text = "NOT INTERESTED?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="coll_right" type="CollisionShape2D" parent="."]
+position = Vector2(256, -64)
+rotation = -1.57079
+shape = SubResource("WorldBoundaryShape2D_uqij3")
+disabled = true
+
+[node name="coll_left" type="CollisionShape2D" parent="."]
+position = Vector2(-256, -64)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_uqij3")
+disabled = true
+
+[node name="time" parent="." instance=ExtResource("4_g46bp")]
+offset_top = -288.0
+offset_bottom = -224.0
+standalone = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="not_interested" to="." method="_on_not_interested_entered"]

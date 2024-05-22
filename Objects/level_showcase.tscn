@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://crxyq62ggfreo"]
+
+[ext_resource type="Script" path="res://Scripts/level_showcase.gd" id="1_xinsc"]
+[ext_resource type="PackedScene" uid="uid://cldcn1c1nsadf" path="res://Objects/time_showcase.tscn" id="2_cwxq6"]
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="3_2xgv2"]
+[ext_resource type="Texture2D" uid="uid://b2pg85okylsfj" path="res://Sprites/DifficultyStars.png" id="4_hle5n"]
+
+[node name="level_showcase" type="Node2D"]
+script = ExtResource("1_xinsc")
+
+[node name="time" parent="." instance=ExtResource("2_cwxq6")]
+standalone = false
+
+[node name="name" type="Label" parent="."]
+offset_left = -256.0
+offset_top = -80.0
+offset_right = 256.0
+offset_bottom = -16.0
+theme_override_fonts/font = ExtResource("3_2xgv2")
+theme_override_font_sizes/font_size = 32
+text = "LEVEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="diff" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(0, -24)
+texture = ExtResource("4_hle5n")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)

@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://4vpgdxifko3t"]
+
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="1_06yqc"]
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="2_0afel"]
+[ext_resource type="FontVariation" uid="uid://dvqnlt68lgn47" path="res://font_callout.tres" id="3_iadbr"]
+
+[node name="Camera" type="Camera2D"]
+script = ExtResource("1_06yqc")
+
+[node name="cutscene" type="Label" parent="."]
+visible = false
+z_index = 100
+offset_left = -640.0
+offset_top = 192.0
+offset_right = 640.0
+offset_bottom = 320.0
+theme_override_fonts/font = ExtResource("2_0afel")
+theme_override_font_sizes/font_size = 64
+text = "PRESS ENTER TO START"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="timer" type="Label" parent="."]
+visible = false
+z_index = 100
+offset_left = -576.0
+offset_top = 192.0
+offset_right = 504.0
+offset_bottom = 320.0
+theme_override_colors/font_color = Color(0.65098, 0.847059, 0.945098, 1)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.258824, 0.345098, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("3_iadbr")
+theme_override_font_sizes/font_size = 48
+text = "1:50.
+"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="mili" type="Label" parent="timer"]
+z_index = 100
+offset_left = 1072.0
+offset_right = 1152.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.65098, 0.847059, 0.945098, 1)
+theme_override_colors/font_shadow_color = Color(0.101961, 0.258824, 0.345098, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("3_iadbr")
+theme_override_font_sizes/font_size = 48
+text = "000"
+horizontal_alignment = 2
+vertical_alignment = 2

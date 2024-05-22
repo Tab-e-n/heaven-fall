@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cldcn1c1nsadf"]
+
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="1_5qr24"]
+[ext_resource type="Script" path="res://Scripts/time_showcase.gd" id="2_n1q1u"]
+
+[node name="time" type="Label"]
+offset_left = -256.0
+offset_top = -32.0
+offset_right = 256.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("1_5qr24")
+theme_override_font_sizes/font_size = 32
+text = "TIME"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+script = ExtResource("2_n1q1u")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(256, 48)
+gizmo_extents = 256.0

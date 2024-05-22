@@ -1,0 +1,121 @@
+[gd_scene load_steps=10 format=3 uid="uid://ck6wxlfei8770"]
+
+[ext_resource type="PackedScene" uid="uid://4vpgdxifko3t" path="res://Objects/camera.tscn" id="1_tdvnm"]
+[ext_resource type="Script" path="res://Scripts/CameraPoint.gd" id="2_8wrim"]
+[ext_resource type="PackedScene" uid="uid://7eng0tetr5f4" path="res://Objects/player.tscn" id="2_lx70y"]
+[ext_resource type="PackedScene" uid="uid://bl3u1chfs61bi" path="res://Objects/ground.tscn" id="3_wc0eo"]
+[ext_resource type="Texture2D" uid="uid://d3f5gi5xrwb4j" path="res://Sprites/Title.png" id="5_8tqse"]
+[ext_resource type="PackedScene" uid="uid://dtk5or6l403m7" path="res://Objects/portal.tscn" id="6_xrvno"]
+[ext_resource type="PackedScene" uid="uid://crxyq62ggfreo" path="res://Objects/level_showcase.tscn" id="7_dvibj"]
+[ext_resource type="PackedScene" uid="uid://o8lk4d1newe0" path="res://Objects/platform.tscn" id="8_ob4ef"]
+[ext_resource type="PackedScene" uid="uid://c3ob4xukmy5u" path="res://Objects/vacuum_trail.tscn" id="9_dk71r"]
+
+[node name="MainStage" type="Node2D"]
+
+[node name="Camera" parent="." instance=ExtResource("1_tdvnm")]
+
+[node name="CameraPoint" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(-3.63798e-12, -896)
+scale = Vector2(448, 448)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_8wrim")
+cutscene = true
+locked_position = true
+snap_bounds = Vector2(448, 448)
+
+[node name="CameraPoint2" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(-512, -256)
+scale = Vector2(640, 384)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_8wrim")
+locked_position = true
+priority = 50
+
+[node name="CameraPoint3" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(384, -320)
+scale = Vector2(640, 384)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_8wrim")
+
+[node name="Player" parent="." instance=ExtResource("2_lx70y")]
+position = Vector2(-512, -32)
+
+[node name="ground" type="Node2D" parent="."]
+
+[node name="Ground" parent="ground" instance=ExtResource("3_wc0eo")]
+position = Vector2(0, 128)
+scale = Vector2(8, 1)
+
+[node name="Ground3" parent="ground" instance=ExtResource("3_wc0eo")]
+position = Vector2(0, -32)
+scale = Vector2(2, 0.25)
+
+[node name="Ground7" parent="ground" instance=ExtResource("3_wc0eo")]
+position = Vector2(-640, -16)
+scale = Vector2(3, 0.125)
+
+[node name="Ground5" parent="ground" instance=ExtResource("3_wc0eo")]
+position = Vector2(608, -112)
+scale = Vector2(0.75, 0.375)
+
+[node name="Ground6" parent="ground" instance=ExtResource("3_wc0eo")]
+position = Vector2(928, -80)
+scale = Vector2(0.75, 0.625)
+
+[node name="Ground2" parent="ground" instance=ExtResource("3_wc0eo")]
+position = Vector2(-1152, -768)
+scale = Vector2(1, 8)
+
+[node name="Ground4" parent="ground" instance=ExtResource("3_wc0eo")]
+position = Vector2(1152, -768)
+scale = Vector2(1, 8)
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(0, -896)
+texture = ExtResource("5_8tqse")
+
+[node name="p_tutorial" parent="." instance=ExtResource("6_xrvno")]
+position = Vector2(-768, -160)
+level_end = false
+next_scene = "res://Levels/tutorial.tscn"
+
+[node name="ls_tutorial" parent="." instance=ExtResource("7_dvibj")]
+position = Vector2(-768, -224)
+level = "Tutorial"
+
+[node name="p_level1" parent="." instance=ExtResource("6_xrvno")]
+position = Vector2(0, -192)
+level_end = false
+next_scene = "res://Levels/slip.tscn"
+
+[node name="ls_level1" parent="." instance=ExtResource("7_dvibj")]
+position = Vector2(0, -256)
+level = "Fall Right"
+difficulty = 1
+
+[node name="p_level2" parent="." instance=ExtResource("6_xrvno")]
+position = Vector2(640, -288)
+disabled = true
+level_end = false
+next_scene = "res://Levels/tutorial.tscn"
+
+[node name="ls_level2" parent="." instance=ExtResource("7_dvibj")]
+position = Vector2(640, -352)
+level = "Level 2"
+difficulty = 2
+
+[node name="platform" parent="." instance=ExtResource("8_ob4ef")]
+position = Vector2(384, -104)
+
+[node name="platform2" parent="." instance=ExtResource("8_ob4ef")]
+position = Vector2(768, -152)
+
+[node name="VacuumTrail" parent="." instance=ExtResource("9_dk71r")]
+position = Vector2(768, -64)
+direction = Vector2(0, -1)

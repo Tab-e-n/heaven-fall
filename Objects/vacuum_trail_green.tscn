@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://caie7l55q6ta2"]
+
+[ext_resource type="PackedScene" uid="uid://c3ob4xukmy5u" path="res://Objects/vacuum_trail.tscn" id="1_mf7xp"]
+
+[node name="GVacuumTrail" instance=ExtResource("1_mf7xp")]
+pull_speed = 300.0
+color = Color(0.619608, 0.901961, 0.603922, 1)

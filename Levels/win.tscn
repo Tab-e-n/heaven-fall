@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://o4rg8gsa4wsr"]
+
+[sub_resource type="GDScript" id="GDScript_dym1g"]
+script/source = "extends Node2D
+
+
+func _physics_process(_delta):
+	if Input.is_action_just_pressed(\"reset\"):
+		get_tree().change_scene_to_file(\"res://tutorial.tscn\")
+"
+
+[node name="Win" type="Node2D"]
+script = SubResource("GDScript_dym1g")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.207843, 0.207843, 0.270588, 1)
+polygon = PackedVector2Array(-56, -40, 1464, -40, 1392, 896, -136, 824)
+
+[node name="Label" type="Label" parent="."]
+offset_top = 248.0
+offset_right = 1280.0
+offset_bottom = 525.0
+theme_override_font_sizes/font_size = 48
+text = "CONGRATS ON BEATING THE TUTORIAL!
+THE REAL LEVEL WILL MAYBE COME SOMETIME LATER
+
+PRESS ENTER TO RETURN TO TUTORIAL"
+horizontal_alignment = 1
+vertical_alignment = 1
