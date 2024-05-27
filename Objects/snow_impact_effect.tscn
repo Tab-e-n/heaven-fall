@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://0e802jjp8tld"]
+
+[ext_resource type="Texture2D" uid="uid://bwhk3sai1iv6x" path="res://Sprites/SnowParticle.png" id="1_jlpmo"]
+[ext_resource type="Script" path="res://Scripts/snow_impact_effect.gd" id="2_x3o2r"]
+
+[sub_resource type="Curve" id="Curve_56vek"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="SnowImpactEffect" type="CPUParticles2D"]
+emitting = false
+amount = 6
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.9
+texture = ExtResource("1_jlpmo")
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 120.0
+initial_velocity_max = 150.0
+scale_amount_curve = SubResource("Curve_56vek")
+script = ExtResource("2_x3o2r")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

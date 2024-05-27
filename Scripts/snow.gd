@@ -23,10 +23,10 @@ func _on_body_entered(body):
 		if $ground.position.y > LOWEST_GROUND_POS:
 			$ground.position.y = LOWEST_GROUND_POS
 		
-		if body.state == Player.STATE_FALL:
-			body.change_state(Player.STATE_SNOW_LAND)
-		if body.velocity.y > 0 and body.state in Player.TRIP_STATES:
-			body.change_state(Player.STATE_SNOW_LAND)
+		if body.velocity.y > Player.SNOW_LAND_THRESHOLD: 
+			#print(body.velocity.y)
+			if body.state == Player.STATE_FALL or body.state in Player.TRIP_STATES:
+				body.change_state(Player.STATE_SNOW_LAND)
 
 
 func _on_body_exited(body):

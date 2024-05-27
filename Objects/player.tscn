@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://7eng0tetr5f4"]
+[gd_scene load_steps=28 format=3 uid="uid://7eng0tetr5f4"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_ng8yg"]
 [ext_resource type="Texture2D" uid="uid://qtmtrqaypuek" path="res://Sprites/Player.png" id="2_pnig7"]
@@ -230,7 +230,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [Vector2(0, -32)]
 }
 tracks/2/type = "value"
@@ -242,7 +242,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [Vector2(2, 2)]
 }
 tracks/3/type = "value"
@@ -254,7 +254,7 @@ tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [0.0]
 }
 
@@ -541,6 +541,11 @@ _data = {
 "Win": SubResource("Animation_3kv2m")
 }
 
+[sub_resource type="Curve" id="Curve_a8ynj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 255
 collision_mask = 255
@@ -571,9 +576,11 @@ libraries = {
 [node name="snow" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 3
+lifetime = 1.5
 texture = ExtResource("3_bjw7m")
 direction = Vector2(0, -1)
 spread = 20.0
 gravity = Vector2(0, 200)
 initial_velocity_min = 120.0
 initial_velocity_max = 150.0
+scale_amount_curve = SubResource("Curve_a8ynj")

@@ -65,7 +65,7 @@ priority = 25
 
 [node name="CameraPoint12" type="Polygon2D" parent="Camera"]
 z_index = -100
-position = Vector2(3264, 512)
+position = Vector2(3232, 512)
 scale = Vector2(512, 320)
 color = Color(0.9, 0.5, 0.9, 0.25)
 polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
@@ -75,14 +75,23 @@ priority = 25
 
 [node name="CameraPoint11" type="Polygon2D" parent="Camera"]
 z_index = -100
-position = Vector2(3072, 512)
-scale = Vector2(512, 448)
+position = Vector2(3040, 512)
+scale = Vector2(480, 448)
 color = Color(0.9, 0.5, 0.9, 0.25)
 polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
 script = ExtResource("2_wydli")
 locked_position = true
-snap_bounds = Vector2(512, 448)
+snap_bounds = Vector2(480, 448)
 priority = 50
+
+[node name="CameraPoint15" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(3424, -192)
+scale = Vector2(480, 448)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_wydli")
+snap_bounds = Vector2(480, 448)
 
 [node name="CameraPoint14" type="Polygon2D" parent="Camera"]
 z_index = -100
@@ -93,6 +102,48 @@ polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
 script = ExtResource("2_wydli")
 snap_bounds = Vector2(512, 448)
 priority = 25
+
+[node name="CameraPoint16" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(3008, 1568)
+scale = Vector2(512, 256)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_wydli")
+locked_position = true
+snap_bounds = Vector2(512, 256)
+priority = 50
+
+[node name="CameraPoint17" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(3904, 1408)
+scale = Vector2(448, 256)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_wydli")
+locked_position = true
+snap_bounds = Vector2(448, 256)
+priority = 75
+
+[node name="CameraPoint19" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(4224, 1664)
+scale = Vector2(640, 640)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_wydli")
+snap_bounds = Vector2(640, 640)
+priority = 25
+
+[node name="CameraPoint18" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(4544, 1664)
+scale = Vector2(384, 512)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_wydli")
+locked_position = true
+snap_bounds = Vector2(384, 512)
 
 [node name="CameraPoint13" type="Polygon2D" parent="Camera"]
 z_index = -100
@@ -106,7 +157,7 @@ snap_bounds = Vector2(512, 256)
 
 [node name="CameraPoint5" type="Polygon2D" parent="Camera"]
 z_index = -100
-position = Vector2(4608, -512)
+position = Vector2(6320, -248)
 scale = Vector2(256, 448)
 color = Color(0.9, 0.5, 0.9, 0.25)
 polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
@@ -117,7 +168,7 @@ priority = 50
 
 [node name="CameraPoint9" type="Polygon2D" parent="Camera"]
 z_index = -100
-position = Vector2(5632, -832)
+position = Vector2(7344, -568)
 scale = Vector2(768, 384)
 color = Color(0.9, 0.5, 0.9, 0.25)
 polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
@@ -126,7 +177,7 @@ snap_bounds = Vector2(768, 384)
 
 [node name="CameraPoint10" type="Polygon2D" parent="Camera"]
 z_index = -100
-position = Vector2(5632, -384)
+position = Vector2(7344, -120)
 scale = Vector2(768, 64)
 color = Color(0.9, 0.5, 0.9, 0.25)
 polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
@@ -137,10 +188,10 @@ snap_bounds = Vector2(768, 64)
 
 [node name="EditorTempPos" parent="Player" instance=ExtResource("4_tupq8")]
 position = Vector2(1632, 128)
+enabled = false
 
 [node name="EditorTempPos2" parent="Player" instance=ExtResource("4_tupq8")]
 position = Vector2(3520, 416)
-enabled = false
 
 [node name="ground" type="Node2D" parent="."]
 modulate = Color(0.745098, 0.85098, 0.898039, 1)
@@ -170,19 +221,19 @@ position = Vector2(1664, 576)
 scale = Vector2(1, 3)
 
 [node name="Ground9" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(4288, -560)
+position = Vector2(6000, -296)
 scale = Vector2(1, 1.875)
 
 [node name="Ground28" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(6464, -704)
+position = Vector2(8176, -440)
 scale = Vector2(0.5, 3)
 
 [node name="Ground25" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(5440, -192)
+position = Vector2(7152, 72)
 scale = Vector2(4.5, 1)
 
 [node name="Ground27" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(6336, -192)
+position = Vector2(8048, 72)
 scale = Vector2(1.5, 1)
 
 [node name="Ground8" parent="ground" instance=ExtResource("4_jbnkd")]
@@ -194,7 +245,7 @@ position = Vector2(1632, 160)
 scale = Vector2(0.75, 0.25)
 
 [node name="Ground12" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(4608, -96)
+position = Vector2(6320, 168)
 scale = Vector2(2, 1)
 
 [node name="Ground34" parent="ground" instance=ExtResource("4_jbnkd")]
@@ -209,9 +260,53 @@ scale = Vector2(0.25, 0.375)
 position = Vector2(3232, 1184)
 scale = Vector2(0.25, 0.5)
 
+[node name="Ground61" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3104, 1584)
+scale = Vector2(0.25, 0.625)
+
+[node name="Ground69" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3200, 1632)
+scale = Vector2(0.5, 0.25)
+
+[node name="Ground73" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4352, 1920)
+scale = Vector2(0.5, 0.25)
+
+[node name="Ground65" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3488, 1552)
+scale = Vector2(0.25, 0.875)
+
+[node name="Ground74" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4048, 1432)
+scale = Vector2(0.125, 0.125)
+
+[node name="Ground75" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4112, 1352)
+scale = Vector2(0.625, 0.5)
+
+[node name="Ground67" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4288, 1584)
+scale = Vector2(1, 0.625)
+
+[node name="Ground71" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4800, 2016)
+scale = Vector2(1, 0.75)
+
+[node name="Ground70" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4768, 1536)
+scale = Vector2(1, 1.5)
+
+[node name="Ground68" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4032, 1568)
+scale = Vector2(0.25, 0.25)
+
 [node name="Ground44" parent="ground" instance=ExtResource("4_jbnkd")]
 position = Vector2(2912, 1088)
 scale = Vector2(0.25, 0.25)
+
+[node name="Ground62" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(2896, 1424)
+scale = Vector2(0.125, 0.125)
 
 [node name="Ground42" parent="ground" instance=ExtResource("4_jbnkd")]
 position = Vector2(3296, 960)
@@ -229,17 +324,69 @@ scale = Vector2(0.25, 1)
 position = Vector2(3360, 1040)
 scale = Vector2(0.75, 0.125)
 
+[node name="Ground64" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(2592, 1648)
+scale = Vector2(0.75, 0.125)
+
 [node name="Ground37" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(3520, 544)
-scale = Vector2(0.5, 1)
+position = Vector2(3536, 544)
+scale = Vector2(0.375, 1)
+
+[node name="Ground52" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3264, 592)
+scale = Vector2(0.25, 0.625)
+
+[node name="Ground49" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3712, 128)
+scale = Vector2(2, 1)
+
+[node name="Ground54" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3136, 192)
+scale = Vector2(1, 0.5)
+
+[node name="Ground50" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3312, 304)
+scale = Vector2(0.125, 0.375)
+
+[node name="Ground59" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3472, 464)
+scale = Vector2(0.125, 0.375)
+
+[node name="Ground55" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3056, 288)
+scale = Vector2(0.125, 0.25)
+
+[node name="Ground58" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(2928, 864)
+scale = Vector2(0.125, 0.25)
+
+[node name="Ground63" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(2704, 1440)
+scale = Vector2(0.125, 0.25)
+
+[node name="Ground57" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(1984, 288)
+scale = Vector2(0.125, 0.25)
+
+[node name="Ground56" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3664, 272)
+scale = Vector2(0.125, 0.125)
+
+[node name="Ground53" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3264, 288)
+scale = Vector2(0.25, 0.25)
+
+[node name="Ground51" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3440, 160)
+scale = Vector2(0.125, 1.25)
 
 [node name="Ground38" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(3776, 704)
+position = Vector2(3776, 768)
 scale = Vector2(0.5, 4)
 
 [node name="Ground47" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(2432, 1248)
-scale = Vector2(0.5, 2)
+position = Vector2(2432, 1376)
+scale = Vector2(0.5, 3)
 
 [node name="Ground36" parent="ground" instance=ExtResource("4_jbnkd")]
 position = Vector2(3200, 752)
@@ -253,6 +400,18 @@ scale = Vector2(1.75, 1)
 position = Vector2(2976, 1328)
 scale = Vector2(2.25, 0.625)
 
+[node name="Ground60" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(3072, 2048)
+scale = Vector2(4.5, 3)
+
+[node name="Ground72" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4224, 2192)
+scale = Vector2(4.5, 0.625)
+
+[node name="Ground66" parent="ground" instance=ExtResource("4_jbnkd")]
+position = Vector2(4032, 1824)
+scale = Vector2(2, 1.25)
+
 [node name="Ground33" parent="ground" instance=ExtResource("4_jbnkd")]
 position = Vector2(2080, 224)
 scale = Vector2(0.25, 0.25)
@@ -262,11 +421,11 @@ position = Vector2(1952, 224)
 scale = Vector2(0.25, 0.25)
 
 [node name="Ground15" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(4768, -576)
+position = Vector2(6480, -312)
 scale = Vector2(0.25, 1)
 
 [node name="Ground26" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(5056, -544)
+position = Vector2(6768, -280)
 scale = Vector2(2, 0.75)
 
 [node name="Ground4" parent="ground" instance=ExtResource("4_jbnkd")]
@@ -286,31 +445,55 @@ position = Vector2(1456, 200)
 position = Vector2(1856, 200)
 
 [node name="platform6" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(2624, 488)
+position = Vector2(2656, 504)
+
+[node name="platform16" parent="ground" instance=ExtResource("5_0odl0")]
+position = Vector2(2048, 264)
+
+[node name="platform13" parent="ground" instance=ExtResource("5_0odl0")]
+position = Vector2(2432, 600)
 
 [node name="platform15" parent="ground" instance=ExtResource("5_0odl0")]
 position = Vector2(2752, 1096)
 
+[node name="platform17" parent="ground" instance=ExtResource("5_0odl0")]
+position = Vector2(2816, 1560)
+
+[node name="platform18" parent="ground" instance=ExtResource("5_0odl0")]
+position = Vector2(3328, 1560)
+
+[node name="platform21" parent="ground" instance=ExtResource("5_0odl0")]
+position = Vector2(4048, 1392)
+
+[node name="platform20" parent="ground" instance=ExtResource("5_0odl0")]
+position = Vector2(3840, 1576)
+
+[node name="platform19" parent="ground" instance=ExtResource("5_0odl0")]
+position = Vector2(3712, 1672)
+
 [node name="platform7" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(3008, 456)
+position = Vector2(3008, 472)
+
+[node name="platform14" parent="ground" instance=ExtResource("5_0odl0")]
+position = Vector2(3360, 72)
 
 [node name="platform8" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(4440, -312)
+position = Vector2(6152, -48)
 
 [node name="platform9" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(4736, -344)
+position = Vector2(6448, -80)
 
 [node name="platform10" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(4736, -440)
+position = Vector2(6448, -176)
 
 [node name="platform12" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(4752, -632)
+position = Vector2(6464, -368)
 
 [node name="platform11" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(4544, -536)
+position = Vector2(6256, -272)
 
 [node name="platform25" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(5568, -600)
+position = Vector2(7280, -336)
 
 [node name="platform2" parent="ground" instance=ExtResource("5_0odl0")]
 position = Vector2(352, 72)
@@ -349,6 +532,34 @@ direction = Vector2(-1, 0)
 position = Vector2(3136, 1184)
 direction = Vector2(-1, 0)
 
+[node name="VacuumTrail61" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(4608, 2048)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail62" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(4480, 2048)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail63" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(4352, 2048)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail64" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(4224, 2048)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail65" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(4096, 2048)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail66" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(3968, 2048)
+direction = Vector2(-1, 0)
+
+[node name="VacuumTrail67" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(3840, 2048)
+direction = Vector2(-1, 0)
+
 [node name="VacuumTrail56" parent="interactables" instance=ExtResource("7_wxafs")]
 position = Vector2(3008, 1184)
 direction = Vector2(-1, 0)
@@ -366,51 +577,51 @@ position = Vector2(1984, 672)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail14" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(4480, -864)
+position = Vector2(6192, -600)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail34" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(4928, -384)
+position = Vector2(6640, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail35" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(5056, -384)
+position = Vector2(6768, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail36" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(5184, -384)
+position = Vector2(6896, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail37" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(5312, -384)
+position = Vector2(7024, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail38" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(5440, -384)
+position = Vector2(7152, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail39" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(5568, -384)
+position = Vector2(7280, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail40" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(5696, -384)
+position = Vector2(7408, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail41" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(5824, -384)
+position = Vector2(7536, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail42" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(5952, -384)
+position = Vector2(7664, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail44" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(6208, -384)
+position = Vector2(7920, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail45" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(6336, -384)
+position = Vector2(8048, -120)
 direction = Vector2(-1, 0)
 
 [node name="VacuumTrail2" parent="interactables" instance=ExtResource("7_wxafs")]
@@ -441,6 +652,18 @@ direction = Vector2(0, -1)
 position = Vector2(2752, 1184)
 direction = Vector2(0, -1)
 
+[node name="VacuumTrail58" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(3712, 1792)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail59" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(3712, 1920)
+direction = Vector2(0, -1)
+
+[node name="VacuumTrail60" parent="interactables" instance=ExtResource("7_wxafs")]
+position = Vector2(3712, 2048)
+direction = Vector2(0, -1)
+
 [node name="VacuumTrail10" parent="interactables" instance=ExtResource("7_wxafs")]
 position = Vector2(1856, 544)
 direction = Vector2(0, -1)
@@ -458,28 +681,28 @@ position = Vector2(960, 192)
 direction = Vector2(0, -1)
 
 [node name="VacuumTrail12" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(4480, -608)
+position = Vector2(6192, -344)
 direction = Vector2(0, -1)
 
 [node name="VacuumTrail13" parent="interactables" instance=ExtResource("7_wxafs")]
-position = Vector2(4480, -736)
+position = Vector2(6192, -472)
 direction = Vector2(0, -1)
 
 [node name="GVacuumTrail" parent="interactables" instance=ExtResource("9_ao1qr")]
-position = Vector2(5224, -704)
+position = Vector2(6936, -440)
 
 [node name="GVacuumTrail2" parent="interactables" instance=ExtResource("9_ao1qr")]
-position = Vector2(5760, -704)
+position = Vector2(7472, -440)
 direction = Vector2(1, -1)
 
 [node name="Snow" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(2016, 224)
 
 [node name="Snow3" parent="interactables" instance=ExtResource("9_8wden")]
-position = Vector2(2400, 576)
+position = Vector2(2400, 560)
 
 [node name="Snow4" parent="interactables" instance=ExtResource("9_8wden")]
-position = Vector2(2464, 576)
+position = Vector2(2464, 560)
 
 [node name="Snow5" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(2848, 576)
@@ -488,16 +711,28 @@ position = Vector2(2848, 576)
 position = Vector2(3264, 480)
 
 [node name="Snow7" parent="interactables" instance=ExtResource("9_8wden")]
-position = Vector2(3424, 640)
+position = Vector2(3456, 640)
 
 [node name="Snow8" parent="interactables" instance=ExtResource("9_8wden")]
-position = Vector2(3360, 640)
+position = Vector2(3392, 640)
+
+[node name="Snow21" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3328, 640)
 
 [node name="Snow9" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(3680, 1024)
 
 [node name="Snow10" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(3616, 1024)
+
+[node name="Snow22" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(2592, 1600)
+
+[node name="Snow24" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(2656, 1600)
+
+[node name="Snow23" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(2528, 1600)
 
 [node name="Snow19" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(3552, 1024)
@@ -525,6 +760,57 @@ position = Vector2(2848, 1088)
 
 [node name="Snow20" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(2656, 1120)
+
+[node name="Snow25" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(2848, 1520)
+
+[node name="Snow26" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3104, 1472)
+
+[node name="Snow35" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3168, 1568)
+
+[node name="Snow36" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3232, 1568)
+
+[node name="Snow27" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3488, 1408)
+
+[node name="Snow28" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3808, 1536)
+
+[node name="Snow29" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3872, 1536)
+
+[node name="Snow30" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4032, 1504)
+
+[node name="Snow31" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4192, 1472)
+
+[node name="Snow32" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4256, 1472)
+
+[node name="Snow33" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4320, 1472)
+
+[node name="Snow34" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4384, 1472)
+
+[node name="Snow37" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4320, 1856)
+
+[node name="Snow38" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4384, 1856)
+
+[node name="Snow39" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4704, 1888)
+
+[node name="Snow40" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4768, 1888)
+
+[node name="Snow41" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(4832, 1888)
 
 [node name="Snow14" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(3296, 864)

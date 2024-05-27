@@ -22,6 +22,7 @@ position = Vector2(0, 24)
 
 [node name="coll" type="CollisionPolygon2D" parent="ground"]
 polygon = PackedVector2Array(-28, 0, -32, 4, -32, 8, 32, 8, 32, 4, 28, 0)
+one_way_collision = true
 
 [node name="slowdown" type="Area2D" parent="."]
 

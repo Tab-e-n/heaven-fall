@@ -194,7 +194,7 @@ priority = 50
 
 [node name="CameraPoint22" type="Polygon2D" parent="Camera"]
 z_index = -100
-position = Vector2(3392, 1696)
+position = Vector2(3424, 1696)
 scale = Vector2(256, 160)
 color = Color(0.9, 0.5, 0.9, 0.25)
 polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
@@ -504,6 +504,17 @@ flip_h = true
 hframes = 8
 vframes = 3
 frame = 4
+
+[node name="CoyoteTutorial3" type="Sprite2D" parent="Tutorial"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+z_index = -10
+position = Vector2(3360, 1472)
+scale = Vector2(2, 2)
+texture = ExtResource("10_jn210")
+flip_h = true
+hframes = 8
+vframes = 3
+frame = 3
 
 [node name="CoyoteTutorial2" type="Sprite2D" parent="Tutorial"]
 modulate = Color(0.5, 0.5, 0.5, 1)

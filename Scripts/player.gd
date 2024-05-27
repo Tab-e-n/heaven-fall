@@ -41,6 +41,7 @@ const GRAVITY_UP : float = 16
 const STOP_SLIDING_VEL : float = 40
 const BONK_THRESHOLD : float = 180
 const FALL_THRESHOLD : float = 666
+const SNOW_LAND_THRESHOLD : float = 275
 const TRIP_TO_FALL_THRESHOLD : float = 800
 const DIVE_BOOST_PENALTY_THRESHOLD : float = -100
 const COYOTE_TO_AIR_THRESHOLD : float = -110
@@ -70,7 +71,7 @@ const CAN_INITIATE_JUMP : PackedInt32Array = [STATE_IDLE, STATE_TIPTOE]
 # Player starts slipping when trying to jump
 const CAN_INITIATE_SLIP : PackedInt32Array = [STATE_HOPSCOTCH]
 # Player trips when trying to jump
-const CAN_INITIATE_TRIP : PackedInt32Array = [STATE_SLIPPING, STATE_TRIP_GROUND]
+const CAN_INITIATE_TRIP : PackedInt32Array = [STATE_SLIPPING, STATE_TRIP_GROUND, STATE_CROUCH, STATE_CROUCH_WALK]
 # Can use the dive move in this state
 const CAN_INITIATE_DIVE : PackedInt32Array = [STATE_AIR]
 # Can jump out of this state, but will go into STATE_FALL
@@ -114,19 +115,22 @@ const TRIP_START_ANIM_STATES : PackedInt32Array = [STATE_SLIPPING, STATE_AIR]
 var temporary_save_prevention : bool = false
 
 var BonkEffect : PackedScene = preload("res://Objects/bonk_effect.tscn")
+var SnowImpactEffect : PackedScene = preload("res://Objects/snow_impact_effect.tscn")
 var CalloutEffect : PackedScene = preload("res://Objects/callout.tscn")
 
 var start_pos : Vector2 = Vector2(0, 0)
 
 var state : int = STATE_START
 var jump_buffer : int = 0
-var sprint : bool = false
-var dive : bool = false
+var dive_buffer : int = 0
 var jump : bool = false
+var dive : bool = false
+var jump_buffer_reset : bool = true
+var dive_buffer_reset : bool = true
+var sprint : bool = false
 var up_pressed : bool = false
 var down_pressed : bool = false
 var fall_jump : bool = false
-var jump_buffer_reset = true
 
 var hitbox_change : int = 0
 
@@ -183,19 +187,25 @@ func _physics_process(delta):
 		
 		if jump_buffer > -JUMP_BUFFER_FRAMES:
 			jump_buffer -= 1
+		if dive_buffer > 0:
+			dive_buffer -= 1
 	
 		# INPUT
 		player_input(delta)
 		
 		jump = jump_buffer > 0
+		dive = dive_buffer > 0
 		fall_jump = jump_buffer > -JUMP_BUFFER_FRAMES
 		jump_buffer_reset = true
+		dive_buffer_reset = true
 		
 		# STATE TRANSITIONS
 		state_transitions(delta)
 		
 		if jump_buffer_reset:
 			jump_buffer = -JUMP_BUFFER_FRAMES
+		if dive_buffer_reset:
+			dive_buffer = 0
 	
 	if state in SAVEFILE_SAVEABLE_STATES and save_player and not temporary_save_prevention:
 		Global.saved_player_pos = global_position
@@ -235,7 +245,8 @@ func player_input(_delta):
 	direction = Input.get_axis("left", "right")
 	
 	sprint = Input.is_action_pressed("sprint")
-	dive = Input.is_action_just_pressed("down")
+	if Input.is_action_just_pressed("down"):
+		dive_buffer = JUMP_BUFFER_FRAMES
 	
 	up_pressed = input_is_up_pressed()
 	down_pressed = Input.is_action_pressed("down")
@@ -255,7 +266,8 @@ func state_transitions(delta):
 			idle_time = TIME_TILL_IDLE
 		if state == STATE_SNOW_LAND and jump:
 			velocity.y = -FALL_JUMP_VELOCITY
-			change_state(STATE_FALL)
+			#change_state(STATE_FALL)
+			change_state(STATE_AIR)
 		return
 	
 	# Player has left a floor and is now in the air
@@ -356,6 +368,8 @@ func state_transitions(delta):
 			elif state in CAN_INITIATE_SLIDE:
 				change_state(STATE_TRIP_GROUND)
 				velocity.x += facing * TRIP_BOOST_VELOCITY
+			else:
+				dive_buffer_reset = false
 	
 	elif airborne:
 		if coyote_time > 0.0:
@@ -412,6 +426,8 @@ func state_transitions(delta):
 					velocity.y -= DIVE_VERTICAL_BOOST * penalty
 				else:
 					velocity.y -= DIVE_VERTICAL_BOOST
+			else:
+				dive_buffer_reset = false
 
 
 func move_player(_delta):
@@ -545,16 +561,24 @@ func raycast(start : Vector2, end : Vector2) -> bool:
 
 
 func should_be_small_hitbox() -> bool:
-	return raycast(global_position + Vector2(0, -32), global_position + Vector2(0, -56))
+	var ray1 = raycast(global_position + Vector2(-16, -32), global_position + Vector2(-16, -56))
+	var ray2 = raycast(global_position + Vector2(16, -32), global_position + Vector2(16, -56))
+	return ray1 or ray2
 
 
 func change_state(new_state : int):
 	if state == new_state:
 		return
-	if state in SMALL_HITBOX and not new_state in SMALL_HITBOX:
+	
+	var new_hitbox_small : bool = new_state in SMALL_HITBOX
+	var old_hitbox_small : bool = state in SMALL_HITBOX
+	
+	if old_hitbox_small and not new_hitbox_small:
 		if should_be_small_hitbox():
 			if grounded and new_state in AIR_STATES:
 				change_state(STATE_TRIP_AIR)
+			if new_state == STATE_IDLE:
+				change_state(STATE_CROUCH)
 			return
 	
 	match(new_state):
@@ -564,9 +588,6 @@ func change_state(new_state : int):
 			velocity.x = cap_velocity(velocity.x, SLOW_SPEED)
 		STATE_SLIPPING:
 			velocity.x = facing * MID_SPEED
-	
-	var new_hitbox_small : bool = new_state in SMALL_HITBOX
-	var old_hitbox_small : bool = state in SMALL_HITBOX
 	
 	if new_hitbox_small and not old_hitbox_small:
 		hitbox_change = 1
@@ -614,6 +635,7 @@ func change_state(new_state : int):
 	if new_state == STATE_SNOW_LAND:
 		Anim.play("SnowLand")
 		stun_timer = SNOW_STUN_TIME
+		spawn_snow_impact_effect()
 	
 	state = new_state
 	#print(state)
@@ -686,6 +708,12 @@ func spawn_bonk_effect(dir : Vector2, extra : bool = false):
 	new_bonk.player_size = PLAYER_SIZE_FOR_BONK_EFFECT
 	new_bonk.extra = extra
 	get_tree().current_scene.add_child(new_bonk)
+
+
+func spawn_snow_impact_effect():
+	var new_impact : Node2D = SnowImpactEffect.instantiate()
+	new_impact.position = position
+	get_tree().current_scene.add_child(new_impact)
 
 
 func spawn_callout(text : String, color_preset : int):
