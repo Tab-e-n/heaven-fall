@@ -1,7 +1,7 @@
 extends Area2D
 
 
-const LOWEST_GROUND_POS : float = 24
+const LOWEST_GROUND_POS : float = 28
 const HIGHEST_GROUND_POS : float = -16
 
 

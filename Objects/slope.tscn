@@ -6,7 +6,7 @@
 script = ExtResource("1_07r63")
 
 [node name="coll" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-32, -31, -31, -31, 31, 31, 31, 32, -32, 32)
+polygon = PackedVector2Array(-32, -32, 32, 32, -32, 32)
 
 [node name="vis" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(-32, -32, 32, 32, -32, 32)

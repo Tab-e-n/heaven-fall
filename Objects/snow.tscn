@@ -18,10 +18,10 @@ shape = SubResource("RectangleShape2D_pvngl")
 polygon = PackedVector2Array(-32, -24, -24, -32, 0, -24, 24, -32, 32, -24, 32, 32, -32, 32)
 
 [node name="ground" type="StaticBody2D" parent="."]
-position = Vector2(0, 24)
+position = Vector2(0, 28)
 
 [node name="coll" type="CollisionPolygon2D" parent="ground"]
-polygon = PackedVector2Array(-28, 0, -32, 4, -32, 8, 32, 8, 32, 4, 28, 0)
+polygon = PackedVector2Array(-28, 0, -32, 4, 32, 4, 28, 0)
 one_way_collision = true
 
 [node name="slowdown" type="Area2D" parent="."]

@@ -140,7 +140,7 @@ var airborne : bool = false
 var on_wall : bool = false
 var bumped_wall : bool = false
 var bounce_when_falling : bool = false
-var pulled : bool = false
+var pulled : int = 0
 
 var stun_timer : float = .0
 var movement_mult : float = 1.0
@@ -338,7 +338,7 @@ func state_transitions(delta):
 				velocity.x = -previous_velocity.x
 				change_state(STATE_BONK)
 				spawn_bonk_effect(Vector2(facing, 0))
-		elif state in CAN_STOP_WHEN_SLOW and abs(velocity.x) < STOP_SLIDING_VEL and not pulled:
+		elif state in CAN_STOP_WHEN_SLOW and abs(velocity.x) < STOP_SLIDING_VEL and pulled == 0:
 			if (down_pressed or should_be_small_hitbox()) and state in CAN_CROUCH:
 				change_state(STATE_CROUCH)
 			else:
@@ -454,6 +454,7 @@ func move_player(_delta):
 			velocity.x = increase_velocity(velocity.x, AIR_ACCELERATION, AIR_SPEED)
 			if bumped_wall:
 				velocity.x = -previous_velocity.x * 0.75
+			velocity.x = cap_velocity(velocity.x, AIR_SPEED * movement_mult, sign(velocity.x))
 		STATE_TRIP_AIR:
 			velocity.x = increase_velocity(velocity.x, TRIP_DECCELERATION * 0.1, TRIP_SPEED)
 		STATE_COYOTE_JUMP:
@@ -469,7 +470,7 @@ func move_player(_delta):
 		STATE_SNOW_LAND:
 			velocity.x = decrease_velocity(velocity.x, SNOW_DECCELERATION)
 	
-	if pulled:
+	if pulled > 0:
 		pass
 	elif coyote_time > 0.0:
 		velocity.y = 0.0

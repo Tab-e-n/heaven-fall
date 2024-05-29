@@ -1,8 +1,9 @@
 extends StaticBody2D
 
 
-const ACCELERATION : float = 16
-const TOP_SPEED : float = 450
+const ACCELERATION : float = 12
+const TOP_SPEED : float = Player.TRIP_SPEED #450
+const PULLED_WAIT : int = 10
 
 
 var player : Player = null
@@ -23,8 +24,9 @@ func _ready():
 
 func _physics_process(_delta):
 	if player:
-		player.pulled = true
-		if player.grounded:
+		if player.pulled < PULLED_WAIT:
+			player.pulled += 1
+		elif player.grounded:
 			player.change_state(player.STATE_TRIP_GROUND)
 		player.increase_velocity_vector(push_direction, ACCELERATION, TOP_SPEED)
 
@@ -40,5 +42,5 @@ func _on_body_entered(body):
 
 func _on_body_exited(body):
 	if body is Player:
-		player.pulled = false
+		player.pulled = 0
 		player = null

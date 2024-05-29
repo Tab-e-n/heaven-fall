@@ -117,12 +117,12 @@ priority = 50
 [node name="CameraPoint17" type="Polygon2D" parent="Camera"]
 z_index = -100
 position = Vector2(3904, 1408)
-scale = Vector2(448, 256)
+scale = Vector2(448, 320)
 color = Color(0.9, 0.5, 0.9, 0.25)
 polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
 script = ExtResource("2_wydli")
 locked_position = true
-snap_bounds = Vector2(448, 256)
+snap_bounds = Vector2(448, 320)
 priority = 75
 
 [node name="CameraPoint19" type="Polygon2D" parent="Camera"]
@@ -463,7 +463,7 @@ position = Vector2(2816, 1560)
 position = Vector2(3328, 1560)
 
 [node name="platform21" parent="ground" instance=ExtResource("5_0odl0")]
-position = Vector2(4048, 1392)
+position = Vector2(4032, 1400)
 
 [node name="platform20" parent="ground" instance=ExtResource("5_0odl0")]
 position = Vector2(3840, 1576)
@@ -778,6 +778,12 @@ position = Vector2(3488, 1408)
 
 [node name="Snow28" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(3808, 1536)
+
+[node name="Snow42" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3552, 1632)
+
+[node name="Snow43" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(3616, 1632)
 
 [node name="Snow29" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(3872, 1536)
