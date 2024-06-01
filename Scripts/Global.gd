@@ -44,9 +44,12 @@ func _physics_process(_delta):
 		return
 	if Input.is_action_just_pressed("exit"):
 		#print("exitting")
-		save_game()
-		quit = true
-		return
+		if current_scene == DEFAULT_SCENE:
+			save_game()
+			quit = true
+			return
+		else:
+			change_scene(DEFAULT_SCENE)
 	
 	#print(save_player)
 
@@ -148,12 +151,14 @@ func float_to_time(f : float) -> String:
 	if f < 0:
 		s_sign = "-"
 	f = abs(f)
+	@warning_ignore("integer_division")
 	var minutes : int = int(f) / 60
 	var mod_minutes : float = (f - (minutes * 60))
 	var seconds : int = int(mod_minutes)
 	var miliseconds : float = mod_minutes - float(seconds)
 	
 	var s_minutes = String.num(minutes)
+	@warning_ignore("integer_division")
 	var s_seconds = String.num(int(seconds) / 10) + String.num(int(seconds) % 10)
 	var s_miliseconds = String.num(int(miliseconds * 1000))
 	

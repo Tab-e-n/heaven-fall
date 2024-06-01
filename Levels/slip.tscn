@@ -325,8 +325,8 @@ position = Vector2(3360, 1040)
 scale = Vector2(0.75, 0.125)
 
 [node name="Ground64" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(2592, 1648)
-scale = Vector2(0.75, 0.125)
+position = Vector2(2528, 1648)
+scale = Vector2(1.25, 0.125)
 
 [node name="Ground37" parent="ground" instance=ExtResource("4_jbnkd")]
 position = Vector2(3536, 544)
@@ -385,8 +385,8 @@ position = Vector2(3776, 768)
 scale = Vector2(0.5, 4)
 
 [node name="Ground47" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(2432, 1376)
-scale = Vector2(0.5, 3)
+position = Vector2(2432, 1280)
+scale = Vector2(0.5, 2.25)
 
 [node name="Ground36" parent="ground" instance=ExtResource("4_jbnkd")]
 position = Vector2(3200, 752)
@@ -401,8 +401,8 @@ position = Vector2(2976, 1328)
 scale = Vector2(2.25, 0.625)
 
 [node name="Ground60" parent="ground" instance=ExtResource("4_jbnkd")]
-position = Vector2(3072, 2048)
-scale = Vector2(4.5, 3)
+position = Vector2(3008, 2048)
+scale = Vector2(5, 3)
 
 [node name="Ground72" parent="ground" instance=ExtResource("4_jbnkd")]
 position = Vector2(4224, 2192)
@@ -733,6 +733,12 @@ position = Vector2(2656, 1600)
 
 [node name="Snow23" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(2528, 1600)
+
+[node name="Snow44" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(2464, 1600)
+
+[node name="Snow45" parent="interactables" instance=ExtResource("9_8wden")]
+position = Vector2(2400, 1600)
 
 [node name="Snow19" parent="interactables" instance=ExtResource("9_8wden")]
 position = Vector2(3552, 1024)
