@@ -109,6 +109,8 @@ const TRIP_START_ANIM_STATES : PackedInt32Array = [STATE_SLIPPING, STATE_AIR]
 @onready var Anim : AnimationPlayer = $Player/Anim
 @onready var up_key_jump : bool = Global.save_check("up_key_jump")
 
+@onready var debug_speedometer : Label
+
 @export var save_player : bool = true
 @export var reload_penalty : float = 1.0
 
@@ -167,6 +169,11 @@ func _ready():
 		Global.current_scene = get_tree().current_scene.scene_file_path
 		Global.save_player = true
 		#print("player ready: ", Global.save_player)
+	
+	if Global.debug:
+		debug_speedometer = Label.new()
+		debug_speedometer.position.y = -96
+		add_child(debug_speedometer)
 
 
 func _physics_process(delta):
@@ -222,6 +229,9 @@ func _physics_process(delta):
 			start_playing()
 	
 	#print("End: ", state)
+	
+	if debug_speedometer:
+		debug_speedometer.text = str(round(velocity.x))
 
 
 func input_is_jump_just_pressed() -> bool:

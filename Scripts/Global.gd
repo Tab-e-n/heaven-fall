@@ -8,7 +8,7 @@ const SAVEFILE_NAME : String = "user://plattwo.json"
 var DEFAULT_LEVEL_SAVE : Array = [false, -1.0]
 var DEFAULT_SAVEFILE : Dictionary = {
 	"Tutorial" : DEFAULT_LEVEL_SAVE.duplicate(),
-	"Fall Right" : DEFAULT_LEVEL_SAVE.duplicate(),
+	#"Fall Right" : DEFAULT_LEVEL_SAVE.duplicate(),
 	"version" : 0,
 	"return_position" : {
 		"valid" : false,
@@ -18,7 +18,7 @@ var DEFAULT_SAVEFILE : Dictionary = {
 	},
 	"up_key_jump" : true,
 }
-const DEFAULT_SCENE : String = "res://Levels/main_stage.tscn"
+const DEFAULT_SCENE : String = "res://Levels/tutorial.tscn"
 
 
 var savefile : Dictionary = {
@@ -31,7 +31,7 @@ var saved_player_timer : float = -1
 var current_scene : String = ""
 
 var quit : bool = false
-
+var debug : bool = OS.has_feature("editor")
 
 func _ready():
 	load_game()

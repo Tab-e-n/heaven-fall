@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw5x2f3n4du5q"]
+
+[ext_resource type="Script" path="res://Scripts/up_key_block.gd" id="1_joldn"]
+[ext_resource type="Texture2D" uid="uid://b2y675rhmuybd" path="res://Sprites/Space.png" id="1_oxsw5"]
+[ext_resource type="Texture2D" uid="uid://cmfr55qyheau4" path="res://Sprites/SlashOr.png" id="2_nffoq"]
+[ext_resource type="Texture2D" uid="uid://b3w6kppqkuagx" path="res://Sprites/Arrow.png" id="3_k721b"]
+[ext_resource type="Texture2D" uid="uid://j7jsxntbffem" path="res://Sprites/Cog.png" id="4_acyan"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpy5y"]
+size = Vector2(64, 64)
+
+[node name="UpKeyBlock" type="Node2D"]
+script = ExtResource("1_joldn")
+
+[node name="up_jump" type="Node2D" parent="."]
+position = Vector2(-288, -448)
+scale = Vector2(2, 2)
+
+[node name="Space" type="Sprite2D" parent="up_jump"]
+position = Vector2(-32, 3.62396e-05)
+texture = ExtResource("1_oxsw5")
+
+[node name="SlashOr" type="Sprite2D" parent="up_jump"]
+position = Vector2(48, 3.62396e-05)
+texture = ExtResource("2_nffoq")
+
+[node name="Arrow" type="Sprite2D" parent="up_jump"]
+position = Vector2(80, 3.62396e-05)
+rotation = -1.57079
+texture = ExtResource("3_k721b")
+
+[node name="space_jump" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-288, -448)
+scale = Vector2(2, 2)
+texture = ExtResource("1_oxsw5")
+
+[node name="Cog" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("4_acyan")
+
+[node name="player_check" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_check"]
+shape = SubResource("RectangleShape2D_bpy5y")
+
+[connection signal="body_entered" from="player_check" to="." method="_on_player_check_body_entered"]

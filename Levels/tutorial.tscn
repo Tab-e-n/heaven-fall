@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dx0u6vnwne4vx"]
+[gd_scene load_steps=25 format=3 uid="uid://dx0u6vnwne4vx"]
 
 [ext_resource type="PackedScene" uid="uid://4vpgdxifko3t" path="res://Objects/camera.tscn" id="1_ga8xg"]
 [ext_resource type="PackedScene" uid="uid://7eng0tetr5f4" path="res://Objects/player.tscn" id="2_1vvst"]
@@ -6,10 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bl3u1chfs61bi" path="res://Objects/ground.tscn" id="3_7calr"]
 [ext_resource type="PackedScene" uid="uid://ca85awk85odh3" path="res://Objects/editor_temp_pos.tscn" id="4_mmksx"]
 [ext_resource type="Texture2D" uid="uid://b3w6kppqkuagx" path="res://Sprites/Arrow.png" id="5_bknt6"]
-[ext_resource type="Texture2D" uid="uid://cmfr55qyheau4" path="res://Sprites/SlashOr.png" id="6_jllvm"]
 [ext_resource type="PackedScene" uid="uid://o8lk4d1newe0" path="res://Objects/platform.tscn" id="7_o838n"]
 [ext_resource type="Texture2D" uid="uid://bplor7wn0e7jn" path="res://Sprites/ctrl.png" id="7_odb4q"]
-[ext_resource type="Texture2D" uid="uid://b2y675rhmuybd" path="res://Sprites/Space.png" id="8_etpaa"]
 [ext_resource type="Texture2D" uid="uid://dd1yns0rkfryp" path="res://Sprites/safe.png" id="8_ss813"]
 [ext_resource type="Texture2D" uid="uid://bx6wforkq7ji0" path="res://Sprites/jump.png" id="9_a6fm4"]
 [ext_resource type="Texture2D" uid="uid://cc71vx27rn033" path="res://Sprites/Plus.png" id="9_gpm8n"]
@@ -22,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://caie7l55q6ta2" path="res://Objects/vacuum_trail_green.tscn" id="17_q703x"]
 [ext_resource type="PackedScene" uid="uid://qel6t7lu23qi" path="res://Objects/save_disallow.tscn" id="18_0810e"]
 [ext_resource type="PackedScene" uid="uid://b8imddye5h53v" path="res://Objects/speedrun_start.tscn" id="20_h8bi7"]
+[ext_resource type="PackedScene" uid="uid://bw5x2f3n4du5q" path="res://Objects/up_key_block.tscn" id="23_50mwj"]
 
 [sub_resource type="GDScript" id="GDScript_jnt1x"]
 script/source = "extends Area2D
@@ -73,7 +72,7 @@ func activate():
 func _on_teleport_body_entered(body):
 	if body is Player:
 		var label : Label = Label.new()
-		label.text = \"No skipping the tutorial! >:(\"
+		label.text = \"No skipping!\"
 		label.global_position = global_position
 		get_tree().current_scene.add_child(label)
 		
@@ -324,25 +323,6 @@ position = Vector2(384, -192)
 scale = Vector2(2, 2)
 texture = ExtResource("5_bknt6")
 
-[node name="Space" type="Sprite2D" parent="Tutorial"]
-z_index = -10
-position = Vector2(1152, -320)
-scale = Vector2(2, 2)
-texture = ExtResource("8_etpaa")
-
-[node name="SlashOr" type="Sprite2D" parent="Tutorial"]
-z_index = -10
-position = Vector2(1312, -320)
-scale = Vector2(2, 2)
-texture = ExtResource("6_jllvm")
-
-[node name="Arrow3" type="Sprite2D" parent="Tutorial"]
-z_index = -10
-position = Vector2(1376, -320)
-rotation = -1.5708
-scale = Vector2(2, 2)
-texture = ExtResource("5_bknt6")
-
 [node name="Arrow4" type="Sprite2D" parent="Tutorial"]
 z_index = -10
 position = Vector2(2176, 1216)
@@ -536,6 +516,11 @@ modulate = Color(0.72549, 0.733333, 0.796078, 1)
 position = Vector2(992, 192)
 scale = Vector2(0.25, 0.5)
 
+[node name="Ground8" parent="Tutorial" instance=ExtResource("3_7calr")]
+modulate = Color(0.72549, 0.733333, 0.796078, 1)
+position = Vector2(1504, 32)
+scale = Vector2(0.25, 0.25)
+
 [node name="Ground6" parent="Tutorial" instance=ExtResource("3_7calr")]
 modulate = Color(0.72549, 0.733333, 0.796078, 1)
 position = Vector2(976, 96)
@@ -548,8 +533,8 @@ scale = Vector2(0.125, 0.25)
 
 [node name="Ground3" parent="Tutorial" instance=ExtResource("3_7calr")]
 modulate = Color(0.72549, 0.733333, 0.796078, 1)
-position = Vector2(1952, 128)
-scale = Vector2(3.75, 1)
+position = Vector2(1984, 128)
+scale = Vector2(3.5, 1)
 
 [node name="Ground10" parent="Tutorial" instance=ExtResource("3_7calr")]
 modulate = Color(0.72549, 0.733333, 0.796078, 1)
@@ -1402,6 +1387,7 @@ shape = SubResource("RectangleShape2D_ryqep")
 [node name="Portal" parent="." instance=ExtResource("16_rrlqe")]
 position = Vector2(3776, -384)
 level = "Tutorial"
+next_scene = "res://Levels/win.tscn"
 
 [node name="Wowie" type="Sprite2D" parent="."]
 position = Vector2(3640, 2280)
@@ -1411,6 +1397,9 @@ texture = ExtResource("17_fphpr")
 position = Vector2(320, 0)
 level = "Tutorial"
 direction = 1
+
+[node name="UpKeyBlock" parent="." instance=ExtResource("23_50mwj")]
+position = Vector2(1504, 128)
 
 [connection signal="body_entered" from="NoSkip" to="NoSkip" method="_on_body_entered"]
 [connection signal="body_entered" from="NoSkip/Teleport2" to="NoSkip" method="_on_teleport_body_entered"]
