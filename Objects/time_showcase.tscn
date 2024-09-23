@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cldcn1c1nsadf"]
 
-[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="1_5qr24"]
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Fonts/Shixel.ttf" id="1_5qr24"]
 [ext_resource type="Script" path="res://Scripts/time_showcase.gd" id="2_n1q1u"]
 
 [node name="time" type="Label"]

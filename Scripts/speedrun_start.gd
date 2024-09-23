@@ -47,7 +47,7 @@ func _physics_process(_delta):
 		$coll_right.set_deferred("disabled", direction == 0)
 		$not_interested.set_deferred("monitoring", true)
 		$not_interested.set_deferred("monitorable", true)
-	if Input.is_action_just_pressed("reset") and not GameCamera.cutscene:
+	if Input.is_action_just_pressed("reset") and not GameCamera.camera.cutscene:
 		call_deferred("activate")
 
 

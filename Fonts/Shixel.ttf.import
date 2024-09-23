@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://deokdf8squ4rk"
-path="res://.godot/imported/Shixel.ttf-b1a0fde257bc603438cb3f6035e190ab.fontdata"
+path="res://.godot/imported/Shixel.ttf-b5d15db398510c7756bdd1d34e5b39d3.fontdata"
 
 [deps]
 
-source_file="res://Shixel.ttf"
-dest_files=["res://.godot/imported/Shixel.ttf-b1a0fde257bc603438cb3f6035e190ab.fontdata"]
+source_file="res://Fonts/Shixel.ttf"
+dest_files=["res://.godot/imported/Shixel.ttf-b5d15db398510c7756bdd1d34e5b39d3.fontdata"]
 
 [params]
 

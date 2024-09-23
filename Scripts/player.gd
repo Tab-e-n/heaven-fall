@@ -6,7 +6,9 @@ enum {
 	STATE_START, STATE_IDLE, STATE_TIPTOE, STATE_HOPSCOTCH,
 	STATE_SLIPPING, STATE_AIR, STATE_FALL, STATE_TRIP_GROUND,
 	STATE_TRIP_AIR, STATE_COYOTE_TIME, STATE_COYOTE_JUMP, STATE_BONK,
-	STATE_END, STATE_CROUCH, STATE_CROUCH_WALK, STATE_SNOW_LAND}
+	STATE_END, STATE_CROUCH, STATE_CROUCH_WALK, STATE_SNOW_LAND,
+	STATE_PAUSED, STATE_THROW, STATE_THROWING
+}
 
 const JUMP_BUFFER_FRAMES : int = 3
 
@@ -33,7 +35,7 @@ const SLIP_ACCELERATION : float = 5
 const TRIP_DECCELERATION : float = 6
 const BONK_DECCELERATION : float = 7
 const FALL_ACCELERATION : float = 2
-const SNOW_DECCELERATION : float = 15
+const SNOW_DECCELERATION : float = 20
 const GRAVITY_DOWN : float = 20
 const GRAVITY_DOWN_SPRINT : float = 25
 const GRAVITY_UP : float = 16
@@ -53,11 +55,15 @@ const PERFECT_COYOTE_THRESHOLD : float = 0.2
 const SNOW_STUN_TIME : float = 1.0
 const SNOW_SLOWDOWN : float = 0.5
 
-const PAUSE_STATES : PackedInt32Array = [STATE_END, STATE_START]
-const GROUND_STATES : PackedInt32Array = [STATE_IDLE, STATE_TIPTOE, STATE_HOPSCOTCH, STATE_SLIPPING, STATE_TRIP_GROUND, STATE_CROUCH, STATE_CROUCH_WALK]
+const THROW_STUN_TIME : float = 0.3
+const THROW_STRENGHT : float = 240
+
+const PAUSE_STATES : PackedInt32Array = [STATE_END, STATE_START, STATE_PAUSED]
+const GROUND_STATES : PackedInt32Array = [STATE_IDLE, STATE_TIPTOE, STATE_HOPSCOTCH, STATE_SLIPPING, STATE_TRIP_GROUND, STATE_CROUCH, STATE_CROUCH_WALK, STATE_THROW]
 const AIR_STATES : PackedInt32Array = [STATE_AIR, STATE_FALL, STATE_TRIP_AIR, STATE_COYOTE_TIME, STATE_COYOTE_JUMP]
-const NO_TURN_STATES : PackedInt32Array = [STATE_FALL, STATE_TRIP_GROUND, STATE_TRIP_AIR, STATE_BONK, STATE_SNOW_LAND]
+const NO_TURN_STATES : PackedInt32Array = [STATE_FALL, STATE_TRIP_GROUND, STATE_TRIP_AIR, STATE_BONK, STATE_SNOW_LAND, STATE_THROW, STATE_THROWING]
 const TRIP_STATES : PackedInt32Array = [STATE_TRIP_AIR, STATE_TRIP_GROUND]
+const THROW_STATES : PackedInt32Array = [STATE_THROW]
 const SMALL_HITBOX : PackedInt32Array = [STATE_FALL, STATE_TRIP_GROUND, STATE_TRIP_AIR, STATE_CROUCH, STATE_CROUCH_WALK]
 const SAVEFILE_SAVEABLE_STATES : PackedInt32Array = [STATE_IDLE, STATE_TIPTOE, STATE_HOPSCOTCH, STATE_CROUCH, STATE_CROUCH_WALK]
 
@@ -78,6 +84,8 @@ const CAN_INITIATE_DIVE : PackedInt32Array = [STATE_AIR]
 const CAN_INITIATE_FALL : PackedInt32Array = [STATE_BONK]
 # Can a grounded state change into the STATE_TRIP_GROUND when down pressed
 const CAN_INITIATE_SLIDE : PackedInt32Array = [STATE_HOPSCOTCH, STATE_SLIPPING, STATE_BONK]
+# STATE_THROW
+const CAN_INITIATE_THROW : PackedInt32Array = [STATE_HOPSCOTCH]
 
 # This state can transition into tiptoe
 const CAN_TIPTOE : PackedInt32Array = [STATE_IDLE, STATE_HOPSCOTCH, STATE_CROUCH, STATE_CROUCH_WALK]
@@ -115,6 +123,7 @@ const TRIP_START_ANIM_STATES : PackedInt32Array = [STATE_SLIPPING, STATE_AIR]
 @export var reload_penalty : float = 1.0
 
 var temporary_save_prevention : bool = false
+var temporary_state_change_stop : bool = false
 
 var BonkEffect : PackedScene = preload("res://Objects/bonk_effect.tscn")
 var SnowImpactEffect : PackedScene = preload("res://Objects/snow_impact_effect.tscn")
@@ -122,11 +131,13 @@ var CalloutEffect : PackedScene = preload("res://Objects/callout.tscn")
 
 var start_pos : Vector2 = Vector2(0, 0)
 
-var state : int = STATE_START
+@export var state : int = STATE_START
 var jump_buffer : int = 0
 var dive_buffer : int = 0
+var pickup_buffer : int = 0
 var jump : bool = false
 var dive : bool = false
+var pickup : bool = false
 var jump_buffer_reset : bool = true
 var dive_buffer_reset : bool = true
 var sprint : bool = false
@@ -159,6 +170,11 @@ var raycast_hit : Vector2 = Vector2(0, 0)
 
 var speedrun_timer : float = -1
 
+var held_pickup : Pickup = null
+@onready var pickup_area : Area2D = $pickup_area
+@onready var pickup_hold_pos : Node2D = $pickup_pos
+var throw_velocity : Vector2 = Vector2(0, 0)
+
 
 func _ready():
 	start_pos = global_position
@@ -187,6 +203,7 @@ func _physics_process(delta):
 		hitbox_change = 0
 	
 	var paused : bool = state in PAUSE_STATES
+	var cutscene : bool = GameCamera.camera.cutscene
 	
 	if not paused:
 		if speedrun_timer >= 0:
@@ -196,12 +213,19 @@ func _physics_process(delta):
 			jump_buffer -= 1
 		if dive_buffer > 0:
 			dive_buffer -= 1
-	
+		if pickup_buffer > 0:
+			pickup_buffer -= 1
+		
 		# INPUT
-		player_input(delta)
+		if not cutscene:
+			player_input(delta)
+		
+		if turn_character and direction != 0:
+			facing = direction
 		
 		jump = jump_buffer > 0
 		dive = dive_buffer > 0
+		pickup = pickup_buffer > 0
 		fall_jump = jump_buffer > -JUMP_BUFFER_FRAMES
 		jump_buffer_reset = true
 		dive_buffer_reset = true
@@ -214,7 +238,11 @@ func _physics_process(delta):
 		if dive_buffer_reset:
 			dive_buffer = 0
 	
-	if state in SAVEFILE_SAVEABLE_STATES and save_player and not temporary_save_prevention:
+	var should_save : bool = false
+	if not temporary_save_prevention and not cutscene:
+		should_save = state in SAVEFILE_SAVEABLE_STATES and save_player
+	
+	if should_save:
 		Global.saved_player_pos = global_position
 		Global.saved_player_timer = speedrun_timer
 	
@@ -222,9 +250,13 @@ func _physics_process(delta):
 		# STATE MOVEMENT
 		move_player(delta)
 		
+		# HOLDING PICKUP
+		if held_pickup:
+			held_pickup.global_position = global_position + pickup_hold_pos.position * Vector2(-facing, 1)
+		
 		# ANIMATIONS
 		animate(delta)
-	if paused:
+	else:
 		if state == STATE_START and Input.is_action_just_pressed("reset"):
 			start_playing()
 	
@@ -235,14 +267,14 @@ func _physics_process(delta):
 
 
 func input_is_jump_just_pressed() -> bool:
-	if up_key_jump:
+	if up_key_jump and not state in THROW_STATES:
 		return Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("up_jump")
 	else:
 		return Input.is_action_just_pressed("jump")
 
 
 func input_is_up_pressed() -> bool:
-	if up_key_jump:
+	if up_key_jump and not state in THROW_STATES:
 		return Input.is_action_pressed("up")
 	else:
 		return Input.is_action_pressed("up") or Input.is_action_pressed("up_jump")
@@ -255,6 +287,9 @@ func player_input(_delta):
 	direction = Input.get_axis("left", "right")
 	
 	sprint = Input.is_action_pressed("sprint")
+	if Input.is_action_just_pressed("sprint"):
+		pickup_buffer = JUMP_BUFFER_FRAMES
+	
 	if Input.is_action_just_pressed("down"):
 		dive_buffer = JUMP_BUFFER_FRAMES
 	
@@ -263,15 +298,29 @@ func player_input(_delta):
 	
 	if input_is_jump_just_pressed():
 		jump_buffer = JUMP_BUFFER_FRAMES
+
+
+func clear_input():
+	direction = 0
+	sprint = false
+	pickup_buffer = 0
+	dive_buffer = 0
+	jump_buffer = 0
 	
-	if turn_character and direction != 0:
-		facing = direction
+	up_pressed = false
+	down_pressed = false
 
 
 func state_transitions(delta):
+	if temporary_state_change_stop:
+		temporary_state_change_stop = false
+		return
+	
 	if stun_timer > 0.0:
 		stun_timer -= delta
 		if stun_timer <= 0.0:
+			if state == STATE_THROWING:
+				throw_pickup()
 			change_state(STATE_IDLE)
 			idle_time = TIME_TILL_IDLE
 		if state == STATE_SNOW_LAND and jump:
@@ -285,6 +334,7 @@ func state_transitions(delta):
 		if state == STATE_HOPSCOTCH:
 			change_state(STATE_COYOTE_TIME)
 		elif state in CAUSES_TRIP_ON_LEDGE:
+			#print("airborne")
 			change_state(STATE_TRIP_AIR)
 		elif state in CAUSES_FALL_ON_LEDGE:
 			change_state(STATE_FALL)
@@ -348,6 +398,10 @@ func state_transitions(delta):
 				velocity.x = -previous_velocity.x
 				change_state(STATE_BONK)
 				spawn_bonk_effect(Vector2(facing, 0))
+				
+				if held_pickup:
+					throw_velocity = Vector2(0, -THROW_STRENGHT)
+					throw_pickup()
 		elif state in CAN_STOP_WHEN_SLOW and abs(velocity.x) < STOP_SLIDING_VEL and pulled == 0:
 			if (down_pressed or should_be_small_hitbox()) and state in CAN_CROUCH:
 				change_state(STATE_CROUCH)
@@ -355,7 +409,22 @@ func state_transitions(delta):
 				change_state(STATE_IDLE)
 		
 		if jump:
-			if state in CAN_INITIATE_JUMP:
+			if state in THROW_STATES and held_pickup:
+				throw_velocity.x = direction * THROW_STRENGHT * 0.5 + facing * THROW_STRENGHT
+				throw_velocity.y = -THROW_STRENGHT
+				if up_pressed:
+					throw_velocity.y -= THROW_STRENGHT
+					throw_velocity.x *= 0.75
+					if direction != 0:
+						throw_velocity.y *= 0.75
+				elif down_pressed:
+					throw_velocity.y += THROW_STRENGHT * 0.5
+				change_state(STATE_THROWING)
+				stun_timer = THROW_STUN_TIME
+			elif state in CAN_INITIATE_THROW and held_pickup and direction == 0 and not up_pressed and not down_pressed:
+				pickup_buffer = 0
+				change_state(STATE_THROW)
+			elif state in CAN_INITIATE_JUMP:
 				velocity.y = -JUMP_VELOCITY
 				change_state(STATE_AIR)
 			elif state in CAN_INITIATE_SLIP:
@@ -365,6 +434,10 @@ func state_transitions(delta):
 				velocity.x += direction * TRIP_BOOST_VELOCITY
 				if direction != 0:
 					facing = direction
+				#print("trip")
+				if held_pickup:
+					throw_velocity = velocity + Vector2(THROW_STRENGHT * facing, -THROW_STRENGHT) * 0.25
+					throw_pickup()
 				change_state(STATE_TRIP_AIR)
 			elif state in CAN_INITIATE_FALL:
 				velocity.y = -FALL_JUMP_VELOCITY
@@ -380,6 +453,15 @@ func state_transitions(delta):
 				velocity.x += facing * TRIP_BOOST_VELOCITY
 			else:
 				dive_buffer_reset = false
+		
+		if not sprint and state in THROW_STATES:
+			change_state(STATE_IDLE)
+		
+		if held_pickup and pickup and state == STATE_CROUCH:
+			throw_velocity = Vector2(0, 0)
+			throw_pickup()
+			pickup = false
+			pickup_buffer = 0
 	
 	elif airborne:
 		if coyote_time > 0.0:
@@ -387,6 +469,9 @@ func state_transitions(delta):
 			if coyote_time <= 0:
 				change_state(STATE_FALL)
 		if state == STATE_COYOTE_JUMP and velocity.y >= COYOTE_TO_AIR_THRESHOLD:
+			if held_pickup:
+				throw_velocity.y = -THROW_STRENGHT * 1.5
+				throw_pickup()
 			change_state(STATE_AIR)
 		
 		if state in TRIP_STATES:
@@ -436,8 +521,20 @@ func state_transitions(delta):
 					velocity.y -= DIVE_VERTICAL_BOOST * penalty
 				else:
 					velocity.y -= DIVE_VERTICAL_BOOST
+				
+				if held_pickup:
+					throw_velocity = velocity + Vector2(THROW_STRENGHT * facing, -THROW_STRENGHT) * 0.25
+					throw_pickup()
 			else:
 				dive_buffer_reset = false
+	
+	if pickup:
+		if not held_pickup:
+			held_pickup = pickup_area.closest_pickup()
+			if held_pickup != null:
+				throw_velocity = Vector2(0, 0)
+				held_pickup.is_carried = true
+				pickup_buffer = 0
 
 
 func move_player(_delta):
@@ -551,18 +648,20 @@ func animate(delta):
 			Anim.play("Crouch")
 		STATE_CROUCH_WALK:
 			Anim.play("CrouchWalk")
+		STATE_THROW:
+			Anim.play("ThrowAiming")
 	
 	
 	
 	$snow.emitting = movement_mult < 1.0 and velocity.x != 0
 
 
-func raycast(start : Vector2, end : Vector2) -> bool:
+func raycast(start : Vector2, end : Vector2, coll_mask : int = 0b1111_1111) -> bool:
 	var space_state = get_world_2d().direct_space_state
 	# use global coordinates, not local to node
 	var query = PhysicsRayQueryParameters2D.create(start, end)
 	query.exclude = [self]
-	query.collision_mask = 0b1111_1101
+	query.collision_mask = coll_mask
 	var result = space_state.intersect_ray(query)
 	if result:
 		raycast_hit = result.position
@@ -572,20 +671,22 @@ func raycast(start : Vector2, end : Vector2) -> bool:
 
 
 func should_be_small_hitbox() -> bool:
-	var ray1 = raycast(global_position + Vector2(-16, -32), global_position + Vector2(-16, -56))
-	var ray2 = raycast(global_position + Vector2(16, -32), global_position + Vector2(16, -56))
+	var ray1 = raycast(global_position + Vector2(-16, -31), global_position + Vector2(-16, -56), 0b0000_0010)
+	var ray2 = raycast(global_position + Vector2(16, -31), global_position + Vector2(16, -56), 0b0000_0010)
 	return ray1 or ray2
 
 
 func change_state(new_state : int):
 	if state == new_state:
 		return
+	#print(new_state)
 	
 	var new_hitbox_small : bool = new_state in SMALL_HITBOX
 	var old_hitbox_small : bool = state in SMALL_HITBOX
 	
 	if old_hitbox_small and not new_hitbox_small:
 		if should_be_small_hitbox():
+			#print("small hitbox")
 			if grounded and new_state in AIR_STATES:
 				change_state(STATE_TRIP_AIR)
 			if new_state == STATE_IDLE:
@@ -599,7 +700,9 @@ func change_state(new_state : int):
 			velocity.x = cap_velocity(velocity.x, SLOW_SPEED)
 		STATE_SLIPPING:
 			velocity.x = facing * MID_SPEED
-	
+		STATE_THROW:
+			velocity.x = 0
+
 	if new_hitbox_small and not old_hitbox_small:
 		hitbox_change = 1
 		$collision_small.set_deferred("disabled", false)
@@ -634,8 +737,9 @@ func change_state(new_state : int):
 			Anim.play("TripGetUp")
 		else:
 			Anim.stop()
-		if state == STATE_SLIPPING:
-			idle_time = TIME_TILL_IDLE - 0.2
+		if state in [STATE_SLIPPING, STATE_THROW]:
+			idle_time = TIME_TILL_IDLE - TIME_TILL_IDLE * 0.333
+	
 	if new_state in TRIP_STATES:
 		if state in TRIP_START_ANIM_STATES:
 			Anim.play("TripStart")
@@ -647,6 +751,10 @@ func change_state(new_state : int):
 		Anim.play("SnowLand")
 		stun_timer = SNOW_STUN_TIME
 		spawn_snow_impact_effect()
+	if new_state == STATE_THROWING:
+		Anim.play("Throw")
+	if new_state == STATE_FALL and held_pickup:
+		throw_pickup()
 	
 	state = new_state
 	#print(state)
@@ -668,7 +776,7 @@ func increase_velocity(vel : float, acceleration : float, top_speed : float) -> 
 func increase_velocity_with_direction(dir : float, vel : float, acceleration : float, top_speed : float):
 	if dir == 0:
 		return vel
-	if abs(vel) >= top_speed and dir == sign(vel):
+	if abs(vel) >= top_speed and sign(dir) == sign(vel):
 		return vel
 	
 	vel += dir * acceleration
@@ -685,8 +793,12 @@ func increase_velocity_vector(dir : Vector2, acceleration : float, top_speed : f
 
 func cap_velocity(vel : float, top_speed : float, dir : float = 0.0) -> float:
 	
+	#print("pre ", vel)
+	
 	if abs(vel) > top_speed and (dir == 0.0 or dir == sign(vel)):
 		vel = sign(vel) * top_speed
+	
+	#print("post ", vel)
 	
 	return vel
 
@@ -775,5 +887,33 @@ func new_best():
 	spawn_callout("NEW BEST!", Callout.COLOR_PRESET.CELEBRATION)
 
 
+func transitioning_save_state(height : float):
+	Global.transition_player_state = {
+		"Height" : height,
+		"VelocityX" : velocity.x,
+		"VelocityY" : velocity.y,
+		"State" : state,
+		"Facing" : facing,
+	}
+
+
+func transition_reset(transport_pos : Vector2):
+	global_position = transport_pos
+	var prev_state : Dictionary = Global.transition_player_state
+	global_position.y += prev_state["Height"]
+	facing = prev_state["Facing"]
+	change_state(prev_state["State"])
+	velocity = Vector2(prev_state["VelocityX"], prev_state["VelocityY"])
+	
+	temporary_state_change_stop = true
+	
+
+
 func scene_change():
 	Global.change_scene()
+
+
+func throw_pickup():
+	held_pickup.velocity = throw_velocity
+	held_pickup.is_carried = false
+	held_pickup = null

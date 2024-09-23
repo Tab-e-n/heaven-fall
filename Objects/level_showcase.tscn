@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/level_showcase.gd" id="1_xinsc"]
 [ext_resource type="PackedScene" uid="uid://cldcn1c1nsadf" path="res://Objects/time_showcase.tscn" id="2_cwxq6"]
-[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="3_2xgv2"]
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Fonts/Shixel.ttf" id="3_2xgv2"]
 [ext_resource type="Texture2D" uid="uid://b2pg85okylsfj" path="res://Sprites/DifficultyStars.png" id="4_hle5n"]
 
 [node name="level_showcase" type="Node2D"]

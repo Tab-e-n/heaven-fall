@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmeebgvok0hfj"]
+
+[ext_resource type="Script" path="res://Scripts/heaven_transport.gd" id="1_xj67s"]
+
+[sub_resource type="Gradient" id="Gradient_2yfk6"]
+colors = PackedColorArray(0.501961, 1, 0.501961, 1, 1, 0.501961, 0.501961, 1)
+
+[node name="HeavenTransport" type="Line2D"]
+z_index = -10
+gradient = SubResource("Gradient_2yfk6")
+script = ExtResource("1_xj67s")
+
+[node name="Area" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 5
+
+[connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_area_body_exited"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyfuif3a5ue3q"]
+
+[ext_resource type="Script" path="res://Scripts/Cutscene/text_box.gd" id="1_1qumn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_havlg"]
+bg_color = Color(0.341176, 0.388235, 0.47451, 1)
+
+[node name="TextBox" type="Node2D"]
+visible = false
+z_index = 100
+script = ExtResource("1_1qumn")
+
+[node name="label" type="Label" parent="."]
+offset_left = -384.0
+offset_top = 128.0
+offset_right = 384.0
+offset_bottom = 368.0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_havlg")
+text = "T
+
+
+
+T"
+clip_text = true

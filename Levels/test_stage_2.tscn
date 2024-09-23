@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://w3sssk4g8hc5"]
+
+[ext_resource type="PackedScene" uid="uid://4vpgdxifko3t" path="res://Objects/camera.tscn" id="1_o0mdy"]
+[ext_resource type="Script" path="res://Scripts/CameraPoint.gd" id="2_54d65"]
+[ext_resource type="PackedScene" uid="uid://7eng0tetr5f4" path="res://Objects/player.tscn" id="3_6om04"]
+[ext_resource type="PackedScene" uid="uid://bl3u1chfs61bi" path="res://Objects/ground.tscn" id="4_rgnts"]
+[ext_resource type="Texture2D" uid="uid://c13wrpwbnllt2" path="res://Sprites/Downloaded File.png" id="5_vgycq"]
+[ext_resource type="PackedScene" uid="uid://0kype1c77ju7" path="res://Objects/transport_offscreen.tscn" id="6_wakn8"]
+[ext_resource type="PackedScene" uid="uid://ds2cybquc26co" path="res://Objects/snow.tscn" id="7_bmcmk"]
+
+[node name="test_stage" type="Node2D"]
+
+[node name="Camera" parent="." instance=ExtResource("1_o0mdy")]
+
+[node name="CameraPoint" type="Polygon2D" parent="Camera"]
+z_index = -100
+scale = Vector2(640, 384)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_54d65")
+locked_position = true
+
+[node name="CameraPoint2" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(536, -244)
+scale = Vector2(384, 384)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_54d65")
+locked_position = true
+snap_bounds = Vector2(384, 384)
+cutscene_id = 1
+
+[node name="CameraPoint3" type="Polygon2D" parent="Camera"]
+z_index = -100
+position = Vector2(204, 32)
+scale = Vector2(384, 384)
+color = Color(0.9, 0.5, 0.9, 0.25)
+polygon = PackedVector2Array(1, 1, 1, -1, -1, -1, -1, 1)
+script = ExtResource("2_54d65")
+locked_position = true
+snap_bounds = Vector2(384, 384)
+cutscene_id = 2
+
+[node name="Player" parent="." instance=ExtResource("3_6om04")]
+position = Vector2(-320, -176)
+state = 1
+
+[node name="ground" type="Node2D" parent="."]
+
+[node name="Ground" parent="ground" instance=ExtResource("4_rgnts")]
+position = Vector2(0, 128)
+scale = Vector2(6, 1)
+
+[node name="TransportOffscreen" parent="ground" instance=ExtResource("6_wakn8")]
+position = Vector2(648, 0)
+direction = -1
+next_scene = "test_stage"
+transition_name = "test_trans"
+
+[node name="DownloadedFile" type="Sprite2D" parent="."]
+position = Vector2(512, -256)
+texture = ExtResource("5_vgycq")
+
+[node name="Ground" parent="." instance=ExtResource("4_rgnts")]
+position = Vector2(-320, -112)
+scale = Vector2(0.5, 0.5)
+
+[node name="Ground2" parent="." instance=ExtResource("4_rgnts")]
+position = Vector2(-576, -128)
+scale = Vector2(0.5, 1)
+
+[node name="Ground3" parent="." instance=ExtResource("4_rgnts")]
+position = Vector2(-480, -32)
+scale = Vector2(0.25, 0.25)
+
+[node name="Snow" parent="." instance=ExtResource("7_bmcmk")]
+position = Vector2(-64, -32)
+
+[node name="Snow6" parent="." instance=ExtResource("7_bmcmk")]
+position = Vector2(0, -32)
+
+[node name="Snow4" parent="." instance=ExtResource("7_bmcmk")]
+position = Vector2(-128, -32)
+
+[node name="Snow5" parent="." instance=ExtResource("7_bmcmk")]
+position = Vector2(64, -32)
+
+[node name="Snow2" parent="." instance=ExtResource("7_bmcmk")]
+position = Vector2(-416, -32)
+
+[node name="Snow3" parent="." instance=ExtResource("7_bmcmk")]
+position = Vector2(-480, -96)

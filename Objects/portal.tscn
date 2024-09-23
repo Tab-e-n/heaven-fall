@@ -29,6 +29,8 @@ _data = {
 radius = 32.0
 
 [node name="Portal" type="Area2D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_rai2h")
 
 [node name="Portal" type="Sprite2D" parent="."]

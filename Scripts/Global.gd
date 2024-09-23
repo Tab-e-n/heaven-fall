@@ -4,7 +4,8 @@ extends Node
 enum {LEVEL_BEATEN, LEVEL_TIME}
 
 
-const SAVEFILE_NAME : String = "user://plattwo.json"
+const SAVEFILE_NAME : String = "user://FellFromHeaven/save.json"
+const USER_FOLDER : String = "user://FellFromHeaven"
 var DEFAULT_LEVEL_SAVE : Array = [false, -1.0]
 var DEFAULT_SAVEFILE : Dictionary = {
 	"Tutorial" : DEFAULT_LEVEL_SAVE.duplicate(),
@@ -18,7 +19,7 @@ var DEFAULT_SAVEFILE : Dictionary = {
 	},
 	"up_key_jump" : true,
 }
-const DEFAULT_SCENE : String = "res://Levels/tutorial.tscn"
+const DEFAULT_SCENE : String = "res://Levels/test_stage.tscn"
 
 
 var savefile : Dictionary = {
@@ -28,12 +29,21 @@ var use_saved_pos : bool = false
 var save_player : bool = false
 var saved_player_pos : Vector2 = Vector2(0, 0)
 var saved_player_timer : float = -1
+var transitioning_levels : bool = false
+var transition_name : String = ""
+var transition_player_state : Dictionary = {
+	"Height" : 0,
+	"VelocityX" : 0,
+	"VelocityY" : 0,
+	"State" : 0,
+}
 var current_scene : String = ""
 
 var quit : bool = false
 var debug : bool = OS.has_feature("editor")
 
 func _ready():
+	make_user_dir()
 	load_game()
 
 
@@ -52,6 +62,12 @@ func _physics_process(_delta):
 			change_scene(DEFAULT_SCENE)
 	
 	#print(save_player)
+
+
+func make_user_dir():
+	var dir : DirAccess = DirAccess.open("user://")
+	if not dir.dir_exists(USER_FOLDER):
+		dir.make_dir(USER_FOLDER)
 
 
 func save_game():
@@ -126,10 +142,10 @@ func clear_saved_pos(starting_position : Vector2):
 
 func return_to_last_level_position():
 	use_saved_pos = false
-	if not savefile["Tutorial"][LEVEL_BEATEN]:
-		#print("Go Beat Tut")
-		get_tree().change_scene_to_file("res://Levels/tutorial.tscn")
-		return
+	#if not savefile["Tutorial"][LEVEL_BEATEN]:
+		##print("Go Beat Tut")
+		#get_tree().change_scene_to_file("res://Levels/tutorial.tscn")
+		#return
 	
 	if savefile.has("return_position"):
 		if savefile["return_position"]["valid"]:
@@ -199,7 +215,7 @@ func save_speedrun_time(timer : float, level : String) -> bool:
 
 func change_scene(next_scene : String = current_scene):
 	if get_tree().change_scene_to_file(next_scene) > 0:
-		print("CANT GO TO SCENE ", next_scene)
+		print("CANT GO TO SCENE \"", next_scene, "\"")
 		next_scene = DEFAULT_SCENE
 		get_tree().change_scene_to_file(DEFAULT_SCENE)
 	current_scene = next_scene

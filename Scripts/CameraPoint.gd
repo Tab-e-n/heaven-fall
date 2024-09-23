@@ -3,10 +3,11 @@ extends Polygon2D
 class_name CameraPoint
 
 
-@export var cutscene : bool = false
 @export var locked_position : bool = false
 @export var snap_bounds : Vector2 = Vector2(640, 384)
+@export var zoom : float = 1.0
 @export var priority : int = 100
+@export var cutscene_id : int = 0
 
 
 func _ready():
@@ -23,6 +24,6 @@ func _physics_process(_delta):
 	if Engine.is_editor_hint():
 		scale.x = snap_bounds.x
 		scale.y = snap_bounds.y
-	else:
-		if cutscene and Input.is_action_just_pressed("reset"):
-			queue_free()
+	#else:
+		#if cutscene_id > 0:
+			#pass

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dg3wfpgiw4x7o"]
 
-[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="1_7gh0q"]
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Fonts/Shixel.ttf" id="1_7gh0q"]
 [ext_resource type="Script" path="res://Scripts/callout.gd" id="1_qrlvu"]
 
 [sub_resource type="FontVariation" id="FontVariation_cesic"]

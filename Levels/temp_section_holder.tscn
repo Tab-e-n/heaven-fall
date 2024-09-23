@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bl3u1chfs61bi" path="res://Objects/ground.tscn" id="2_i2mnv"]
 [ext_resource type="PackedScene" uid="uid://o8lk4d1newe0" path="res://Objects/platform.tscn" id="3_gofq8"]
 [ext_resource type="PackedScene" uid="uid://c3ob4xukmy5u" path="res://Objects/vacuum_trail.tscn" id="4_77dn7"]
-[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Shixel.ttf" id="5_l20ke"]
+[ext_resource type="FontFile" uid="uid://deokdf8squ4rk" path="res://Fonts/Shixel.ttf" id="5_l20ke"]
 [ext_resource type="Texture2D" uid="uid://bplor7wn0e7jn" path="res://Sprites/ctrl.png" id="6_gkbbq"]
 [ext_resource type="Texture2D" uid="uid://qtmtrqaypuek" path="res://Sprites/Player.png" id="7_m8mko"]
 
